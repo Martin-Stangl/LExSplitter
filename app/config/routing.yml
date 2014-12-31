@@ -1,3 +1,7 @@
+the_black_lion_l_ex_splitter:
+    resource: "@TheBlackLionLExSplitterBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: @AppBundle/Controller/
     type:     annotation

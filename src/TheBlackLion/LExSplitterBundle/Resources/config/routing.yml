@@ -1,0 +1,7 @@
+homepage:
+    path:     /
+    defaults: { _controller: TheBlackLionLExSplitterBundle:Default:index }
+
+addpayment:
+    path:     /addpayment
+    defaults: { _controller: TheBlackLionLExSplitterBundle:Payment:add }
