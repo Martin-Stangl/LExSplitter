@@ -30,10 +30,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/symfony" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/extensions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/jquery/jquery" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-menu" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-menu-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -78,10 +74,6 @@
           <root url="file://$MODULE_DIR$/vendor/sensio/generator-bundle" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/doctrine-cache-bundle" />
           <root url="file://$MODULE_DIR$/vendor/sensio/framework-extra-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/knplabs/knp-menu-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/knplabs/knp-menu" />
-          <root url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
-          <root url="file://$MODULE_DIR$/vendor/jquery/jquery" />
         </CLASSES>
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/doctrine/common" />
@@ -112,10 +104,6 @@
           <root url="file://$MODULE_DIR$/vendor/sensio/generator-bundle" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/doctrine-cache-bundle" />
           <root url="file://$MODULE_DIR$/vendor/sensio/framework-extra-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/knplabs/knp-menu-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/knplabs/knp-menu" />
-          <root url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
-          <root url="file://$MODULE_DIR$/vendor/jquery/jquery" />
         </SOURCES>
       </library>
     </orderEntry>
