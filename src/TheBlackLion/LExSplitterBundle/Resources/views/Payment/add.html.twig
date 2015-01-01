@@ -50,17 +50,23 @@
                 {# Define split #}
                 <div class="form-group">
                     <label for="split">How to split?</label>
-                    <table class="table">
-                        {# <thead>
+                    <table class="table table-condensed">
+                        <thead>
                         <tr>
                             <th>Person</th>
                             <th>Percentage</th>
                             <th>Amount</th>
                         </tr>
                         </thead>
-                        <tbody> #}
+                        <tbody>
                         <tr>
-                            <td>Martin</td>
+                            <td>
+                                <div class="btn-group btn-block" data-toggle="buttons">
+                                    <label class="btn btn-default btn-block">
+                                        <input type="checkbox" autocomplete="off" name="fullAssign" id="fullAssigned1">Martin
+                                    </label>
+                                </div>
+                            </td>
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control" aria-label=Percentage" id="splitPercentage1">
@@ -75,7 +81,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Nico</td>
+                            <td>
+                                <div class="btn-group btn-block" data-toggle="buttons">
+                                    <label class="btn btn-default btn-block">
+                                        <input type="checkbox" autocomplete="off" name="fullAssign" id="fullAssigned2">Nico
+                                    </label>
+                                </div>
+                            </td>
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control" aria-label=Percentage" id="splitPercentage2">
@@ -89,7 +101,7 @@
                                 </div>
                             </td>
                         </tr>
-                        {# </tbody> #}
+                        </tbody>
                     </table>
                     <div class="row">
                         <div class="col-xs-6">
@@ -113,7 +125,6 @@
         </div>
 
     </form>
-
 {% endblock %}
 
 {% block javascripts %}
