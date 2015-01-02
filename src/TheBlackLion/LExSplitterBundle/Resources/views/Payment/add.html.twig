@@ -1,126 +1,217 @@
 {% extends 'TheBlackLionLExSplitterBundle::base.html.twig' %}
 
 {% block body %}
+    <h1>Menu</h1>
     <form>
 
+        {# Selection of person which did the payment #}
         <div class="row">
             <div class="col-xs-12">
-
-                {# Selection of person which did the payment #}
                 <div class="form-group">
                     <label for="paymentBy">Payment by</label>
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-default active">
-                            <input type="radio" name="options" id="paymentBy1" autocomplete="off" checked> Martin
+                        <label class="btn btn-primary active">
+                            <input type="radio" name="paymentBy" id="paymentBy1" autocomplete="off" value="1" checked>Martin
                         </label>
-                        <label class="btn btn-default">
-                            <input type="radio" name="options" id="paymentBy2" autocomplete="off"> Nico
+                        <label class="btn btn-primary">
+                            <input type="radio" name="paymentBy" id="paymentBy2" autocomplete="off" value="2">Nico
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="radio" name="paymentBy" id="paymentBy3" autocomplete="off" value="3">Indra
                         </label>
                     </div>
                 </div>
-
-                {# Select/enter what was paid #}
+            </div>
+        </div>
+        {# Select/enter what was paid #}
+        <div class="row">
+            <div class="col-xs-12">
                 <div class="form-group">
-                    <label for="paidWhat">What was paid?</label>
+                    <label for="paidWhat" id="paidWhatLabel">What was paid?</label>
                     <select class="combobox input-large form-control" name="paidWhat" id="paidWhat">
-                        <option value="" selected="selected">Description</option>
-                        <option value="PA">Billa</option>
-                        <option value="CT">Putzfrau</option>
-                        <option value="NY">Spar</option>
-                        <option value="VA">Mittagessen</option>
-                        <option value="MD">Merkur</option>
+                        <option value="">Description</option>
+                        <option value="1" selected="selected">Billa</option>
+                        <option value="2">Putzfrau</option>
+                        <option value="3">Spar</option>
+                        <option value="4">Mittagessen</option>
+                        <option value="5">Merkur</option>
                     </select>
                 </div>
+            </div>
+        </div>
 
-                {# Enter paid amount #}
+        <div class="row">
+            {# Enter payment date#}
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="amount">Date</label>
+                    <input type="date" name="paymentDate" class="form-control" aria-label="Date" id="date">
+                </div>
+            </div>
+
+            {# Enter paid amount #}
+            <div class="col-xs-6">
                 <div class="form-group">
                     <label for="amount">Amount</label>
                     <div class="input-group">
                         <span class="input-group-addon">EUR</span>
-                        <input type="text" class="form-control" aria-label="Amount" id="amount">
+                        <input type="number" name="paymentAmount" class="form-control" aria-label="Amount" id="amount" step="0.01" required>
                     </div>
                 </div>
-
             </div>
         </div>
 
+        {# Define split #}
         <div class="row">
             <div class="col-xs-12">
-
-                {# Define split #}
                 <div class="form-group">
-                    <label for="split">How to split?</label>
-                    <table class="table table-condensed">
-                        <thead>
-                        <tr>
-                            <th>Person</th>
-                            <th>Percentage</th>
-                            <th>Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="btn-group btn-block" data-toggle="buttons">
-                                    <label class="btn btn-default btn-block">
-                                        <input type="checkbox" autocomplete="off" name="fullAssign" id="fullAssigned1">Martin
-                                    </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" aria-label=Percentage" id="splitPercentage1">
-                                    <span class="input-group-addon">%</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <span class="input-group-addon">EUR</span>
-                                    <input type="text" class="form-control" aria-label="Amount" id="splitAmount1">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="btn-group btn-block" data-toggle="buttons">
-                                    <label class="btn btn-default btn-block">
-                                        <input type="checkbox" autocomplete="off" name="fullAssign" id="fullAssigned2">Nico
-                                    </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" aria-label=Percentage" id="splitPercentage2">
-                                    <span class="input-group-addon">%</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <span class="input-group-addon">EUR</span>
-                                    <input type="text" class="form-control" aria-label="Amount" id="splitAmount2">
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <button type="submit" class="btn btn-warning btn-block">Reset Split</button>
-                        </div>
-                        <div class="col-xs-6">
-                            <button type="submit" class="btn btn-primary btn-block">Split Equally</button>
-                        </div>
-                    </div>
-                </div>
+                    <label for="split" id="splitLabel">How to split?</label>
 
+                    <div class="form-group">
+                        <div class="btn-group btn-group-justified" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="splitMethod" id="splitMethod1" autocomplete="off" value="equal" checked>Equally
+                            </label>
+                            <label class="btn btn-primary" aria-expanded="false" aria-controls="otherSplitFields">
+                                <input type="radio" name="splitMethod" id="splitMethod2" autocomplete="off" value="other">Other
+                            </label>
+                        </div>
+
+                        <div class="collapse" id="otherSplitFields">
+                            <div class="well">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="2" style="border-top: none">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <div class="btn-group btn-block" data-toggle="buttons">
+                                                        <label class="btn btn-primary btn-block">
+                                                            <input type="checkbox" autocomplete="off" id="fullyAssigned1">Martin
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: none">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" aria-label=Percentage" id="splitPercentage1" min="0" max="100" step="0.01">
+                                                <span class="input-group-addon">%</span>
+                                            </div>
+                                        </td>
+
+                                        <td style="border-top: none">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">EUR</span>
+                                                <input type="number" class="form-control" aria-label="Amount" name="splitAmount1" id="splitAmount1" step="0.0001">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <input type="hidden" id="fixedParameter1" name="fixedParameter1">
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <div class="btn-group btn-block" data-toggle="buttons">
+                                                        <label class="btn btn-primary btn-block">
+                                                            <input type="checkbox" autocomplete="off" id="fullyAssigned2">Nico
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: none">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" aria-label=Percentage" id="splitPercentage2" min="0" max="100" step="0.01">
+                                                <span class="input-group-addon">%</span>
+                                            </div>
+                                        </td>
+
+                                        <td style="border-top: none">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">EUR</span>
+                                                <input type="number" class="form-control" aria-label="Amount" name="splitAmount2" id="splitAmount2" step="0.0001">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <input type="hidden" id="fixedParameter2" name="fixedParameter2">
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <div class="btn-group btn-block" data-toggle="buttons">
+                                                        <label class="btn btn-primary btn-block">
+                                                            <input type="checkbox" autocomplete="off" id="fullyAssigned3">Indra
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: none">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" aria-label=Percentage" id="splitPercentage3" min="0" max="100" step="0.01">
+                                                <span class="input-group-addon">%</span>
+                                            </div>
+                                        </td>
+
+                                        <td style="border-top: none">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">EUR</span>
+                                                <input type="number" class="form-control" aria-label="Amount" name="splitAmount3" id="splitAmount3" step="0.0001">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <input type="hidden" id="fixedParameter3" name="fixedParameter3">
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button type="button" class="btn btn-warning btn-block">Reset Split</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
         </div>
 
+        {# Submit data button #}
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-2">
+            </div>
+            <div class="col-xs-8">
 
+                <br/>
                 <button type="submit" class="btn btn-success btn-lg btn-block">Save Payment</button>
+                <br/>
 
+            </div>
+            <div class="col-xs-2">
             </div>
         </div>
 
@@ -130,12 +221,12 @@
 {% block javascripts %}
     {{ parent() }}
 
-    {# Combobox functionality - coverts select into combobox #}
     <script type="text/javascript">
         //<![CDATA[
-        $(document).ready(function(){
-            $('.combobox').combobox()
-        });
+        {# Combobox functionality - coverts select into combobox #}
+        enableCombobox();
+        {# Initiate Amount Split calulation #}
+        enableAmountSplit();
         //]]>
     </script>
 {% endblock %}
