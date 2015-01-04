@@ -11,7 +11,3 @@ function scrollTo (targetID) {
 function round (number, places) {
     return +(Math.round(number + "e+" + places)  + "e-" + places);
 }
-
-function dummy () {
-    // for fixing git commit error on this file
-}
