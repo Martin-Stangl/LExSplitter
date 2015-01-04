@@ -2,27 +2,33 @@
  * Created by Martin on 02.01.2015.
  */
 
+// Animated scroll to object with ID targetID
+function scrollTo (targetID) {
+    $('html, body').animate({scrollTop: $(targetID).offset().top}, 'slow');
+};
 
+// round to n decimal places
+function round (number, places) {
+    return +(Math.round(number + "e+" + places)  + "e-" + places);
+};
 
-
-
+// Object AmountShare: for single line of amount split table
+function AmountShare (personID) {
+    this.person = personID;
+    this.fullyAssigned = $('#fullyAssigned'+this.person).prop('checked');
+    this.splitPercentage = $('#splitPercentage'+this.person).val();
+    this.splitAmount = $('#splitAmount'+this.person).val();
+    this.fixedParameter = $('#fixedParameter'+this.person).val();
+};
 
 
 // Object AmountSplit: Object with amount split information, splitting logic and splitting calulation
 function AmountSplit() {
-    // maximum memorized entries for undo
-    // number needs to be high, because every change/keypress is processed.
     this.MAXUNDO = 1000;
 
     this.Amount = this.readAmount();
     this.AmountShares = this.readAmountShares();
-
-    this.HistoryEntry = function() {
-        var Amount;
-        var AmountShares;
-    }
-    this.History = [];
-
+    this.History = {};
     // if split method other is set initially, update the splitting calculation
     // to hide any differences between the frontend and backend calculation
     this.update();
@@ -52,14 +58,6 @@ AmountSplit.prototype.readAmountShares = function() {
         }
     )
     return AmountShares;
-};
-
-// Write amount to form
-AmountSplit.prototype.writeAmount = function() {
-    $('#amount').val(this.Amount);
-
-    // remember data for undo
-    this.addUndoHistory();
 };
 
 // Write amount split lines of all users to form
@@ -114,18 +112,15 @@ AmountSplit.prototype.setMethodOther = function() {
 // add data to history fur Undo feature
 AmountSplit.prototype.addUndoHistory = function() {
     // add current entry to history
-    var entry = new this.HistoryEntry();
-    entry.Amount = this.Amount;
-    entry.AmountShares = this.AmountShares;
-    console.log('History length before adding to History: ' + this.History.length);
-    this.History.push(entry);
-    console.log('History length after adding to History: ' + this.History.length);
-    if (this.History.length > this.MAXUNDO) {
-        this.History.shift();
+    console.log('History length before adding to History: ' + this.AmountSharesHistory.length);
+    this.AmountSharesHistory.push(this.AmountShares);
+    console.log('History length after adding to History: ' + this.AmountSharesHistory.length);
+    if (this.AmountSharesHistory.length > this.MAXUNDO) {
+        this.AmountSharesHistory.shift();
     }
-    console.log('History length after checking MAXUNDO: ' + this.History.length);
+    console.log('History length after checking MAXUNDO: ' + this.AmountSharesHistory.length);
     // enable Undo-Button if something to undo
-    if (this.History.length > 1) {
+    if (this.AmountSharesHistory.length > 1) {
         this.enableUndoButton(true);
     }
 };
@@ -141,15 +136,11 @@ AmountSplit.prototype.enableUndoButton = function(enable) {
 
 // perform undo
 AmountSplit.prototype.undo = function() {
-    var entry = new this.HistoryEntry();
     // last entry in history is what we discard
-    this.History.pop();
+    this.AmountSharesHistory.pop();
     // revert to previous values
-    entry = this.History.pop();
-    this.Amount = entry.Amount;
-    this.AmountShares = entry.AmountShares();
+    this.AmountShares = this.AmountSharesHistory.pop();
     // output previous values to form
-    this.writeAmount();
     this.writeAmountShares();
 };
 
