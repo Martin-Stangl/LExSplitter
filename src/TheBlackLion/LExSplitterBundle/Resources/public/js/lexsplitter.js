@@ -15,7 +15,7 @@ function round (number, places) {
 // Object AmountShare: for single line of amount split table
 function AmountShare (personID) {
     this.person = personID;
-    this.fullyAssigned = $('#fullyAssigned'+this.person).val();
+    this.fullyAssigned = $('#fullyAssigned'+this.person).prop('checked');
     this.splitPercentage = $('#splitPercentage'+this.person).val();
     this.splitAmount = $('#splitAmount'+this.person).val();
     this.fixedParameter = $('#fixedParameter'+this.person).val();
@@ -24,8 +24,14 @@ function AmountShare (personID) {
 
 // Object AmountSplit: Object with amount split information, splitting logic and splitting calulation
 function AmountSplit() {
+    this.MAXUNDO = 100;
+
     this.Amount = this.readAmount();
     this.AmountShares = this.readAmountShares();
+    this.AmountSharesHistory = [];
+    // if split method other is set initially, update the splitting calculation
+    // to hide any differences between the frontend and backend calculation
+    this.update();
 };
 
 // Read amount from form
@@ -57,13 +63,17 @@ AmountSplit.prototype.readAmountShares = function() {
 // Write amount split lines of all users to form
 AmountSplit.prototype.writeAmountShares = function() {
     var AmountShare;
+    // write to form
     for (var person in this.AmountShares) {
         AmountShare = this.AmountShares[person];
-        $('#fullyAssigned'+person).val(AmountShare.fullyAssigned);
+        $('#fullyAssigned'+person).prop('checked', AmountShare.fullyAssigned);
         $('#splitPercentage'+person).val(AmountShare.splitPercentage);
         $('#splitAmount'+person).val(AmountShare.splitAmount);
         $('#fixedParameter'+person).val(AmountShare.fixedParameter);
     }
+
+    // remember data for undo
+    this.addUndoHistory();
 };
 
 // calculate amount split
@@ -71,13 +81,7 @@ AmountSplit.prototype.calculate = function() {
     var AmountShare;
     for (var person in this.AmountShares) {
         AmountShare = this.AmountShares[person];
-
-        $('#fullyAssigned'+person).val(AmountShare.fullyAssigned);
-        $('#splitPercentage'+person).val(AmountShare.splitPercentage);
-        $('#splitAmount'+person).val(AmountShare.splitAmount);
-        $('#fixedParameter'+person).val(AmountShare.fixedParameter);
     }
-
 };
 
 // process changes in the split and output result
@@ -97,14 +101,69 @@ AmountSplit.prototype.setMethodEqually = function() {
 
 // switch to split method Other
 AmountSplit.prototype.setMethodOther = function() {
-    // calculate split
-    this.update();
     // set fields to be required
-    $("[id^='splitPercentage']").attr("required", true);
-    $("[id^='splitAmount']").attr("required", true);
+    $("[id^='splitPercentage']").prop("required", true);
+    $("[id^='splitAmount']").prop("required", true);
     // show detail split fields
     $('#otherSplitFields').collapse('show');
     scrollTo('#splitLabel');
+};
+
+// add data to history fur Undo feature
+AmountSplit.prototype.addUndoHistory = function() {
+    // add current entry to history
+    console.log('History length before adding to History: ' + this.AmountSharesHistory.length);
+    this.AmountSharesHistory.push(this.AmountShares);
+    console.log('History length after adding to History: ' + this.AmountSharesHistory.length);
+    if (this.AmountSharesHistory.length > this.MAXUNDO) {
+        this.AmountSharesHistory.shift();
+    }
+    console.log('History length after checking MAXUNDO: ' + this.AmountSharesHistory.length);
+    // enable Undo-Button if something to undo
+    if (this.AmountSharesHistory.length > 1) {
+        this.enableUndoButton(true);
+    }
+};
+
+// enable/disable undo button
+AmountSplit.prototype.enableUndoButton = function(enable) {
+    if (enable) {
+        $('#undoButton').removeAttr("disabled");
+    } else {
+        $('#undoButton').prop("disabled", true);
+    }
+};
+
+// perform undo
+AmountSplit.prototype.undo = function() {
+    // last entry in history is what we discard
+    this.AmountSharesHistory.pop();
+    // revert to previous values
+    this.AmountShares = this.AmountSharesHistory.pop();
+    // output previous values to form
+    this.writeAmountShares();
+};
+
+// perform clear
+AmountSplit.prototype.clear = function() {
+    // clear all values
+
+    //DEBUG
+    this.AmountShares = this.readAmountShares();
+    for (var person in this.AmountShares) {
+        console.log('Person = '+person+', fullyAssigned = '+this.AmountShares[person].fullyAssigned);
+        console.log('Person = '+person+', splitPercentage = '+this.AmountShares[person].splitPercentage);
+        console.log('Person = '+person+', splitAmount = '+this.AmountShares[person].splitAmount);
+        console.log('Person = '+person+', fixedParameter = '+this.AmountShares[person].fixedParameter);
+/*
+        AmountShare = this.AmountShares[person];
+        $('#fullyAssigned'+person).val(AmountShare.fullyAssigned);
+        $('#splitPercentage'+person).val(AmountShare.splitPercentage);
+        $('#splitAmount'+person).val(AmountShare.splitAmount);
+        $('#fixedParameter'+person).val(AmountShare.fixedParameter);
+*/
+    }
+
 };
 
 
@@ -130,12 +189,29 @@ function enableAmountSplit () {
             AmountSplitObj.setAmount($(this).val());
         });
 
-        //Listen for split method selection
+        // Listen for split method selection
         $('#splitMethod1').change(function() {
             AmountSplitObj.setMethodEqually();
         });
         $('#splitMethod2').change(function() {
             AmountSplitObj.setMethodOther();
+        });
+
+        // Listen for full assignment to one person
+        $("[id^='fullyAssigned']").change(function() {
+            if (this.checked) {
+                //AmountSplitObj.setPersonfullyAssigned();
+            }
+        });
+
+        // Listen for pressing of undo button
+        $('#undoButton').click(function() {
+            AmountSplitObj.undo();
+        });
+
+        // Listen for pressing of clear button
+        $('#clearButton').click(function() {
+            AmountSplitObj.clear();
         });
 
     });

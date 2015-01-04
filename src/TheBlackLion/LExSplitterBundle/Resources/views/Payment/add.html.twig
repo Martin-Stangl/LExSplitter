@@ -16,9 +16,6 @@
                         <label class="btn btn-primary">
                             <input type="radio" name="paymentBy" id="paymentBy2" autocomplete="off" value="2">Nico
                         </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="paymentBy" id="paymentBy3" autocomplete="off" value="3">Indra
-                        </label>
                     </div>
                 </div>
             </div>
@@ -88,7 +85,7 @@
                                                 </div>
                                                 <div class="col-xs-8">
                                                     <div class="btn-group btn-block" data-toggle="buttons">
-                                                        <label class="btn btn-primary btn-block">
+                                                        <label class="btn btn-default btn-block">
                                                             <input type="checkbox" autocomplete="off" id="fullyAssigned1">Martin
                                                         </label>
                                                     </div>
@@ -122,7 +119,7 @@
                                                 </div>
                                                 <div class="col-xs-8">
                                                     <div class="btn-group btn-block" data-toggle="buttons">
-                                                        <label class="btn btn-primary btn-block">
+                                                        <label class="btn btn-default btn-block">
                                                             <input type="checkbox" autocomplete="off" id="fullyAssigned2">Nico
                                                         </label>
                                                     </div>
@@ -148,47 +145,14 @@
                                         </td>
                                     </tr>
                                     <input type="hidden" id="fixedParameter2" name="fixedParameter2">
-
-                                    <tr>
-                                        <td colspan="2">
-                                            <div class="row">
-                                                <div class="col-xs-2">
-                                                </div>
-                                                <div class="col-xs-8">
-                                                    <div class="btn-group btn-block" data-toggle="buttons">
-                                                        <label class="btn btn-primary btn-block">
-                                                            <input type="checkbox" autocomplete="off" id="fullyAssigned3">Indra
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-2">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border-top: none">
-                                            <div class="input-group">
-                                                <input type="number" class="form-control" aria-label=Percentage" id="splitPercentage3" min="0" max="100" step="0.01">
-                                                <span class="input-group-addon">%</span>
-                                            </div>
-                                        </td>
-
-                                        <td style="border-top: none">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">EUR</span>
-                                                <input type="number" class="form-control" aria-label="Amount" name="splitAmount3" id="splitAmount3" step="0.0001">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <input type="hidden" id="fixedParameter3" name="fixedParameter3">
                                     </tbody>
                                 </table>
                                 <div class="row">
                                     <div class="col-xs-6">
+                                        <button type="button" class="btn btn-warning btn-block" id="undoButton" disabled="disabled">Undo</button>
                                     </div>
                                     <div class="col-xs-6">
-                                        <button type="button" class="btn btn-warning btn-block">Reset Split</button>
+                                        <button type="button" class="btn btn-warning btn-block" id="clearButton">Clear</button>
                                     </div>
                                 </div>
                             </div>
