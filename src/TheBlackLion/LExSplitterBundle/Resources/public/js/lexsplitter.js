@@ -5,16 +5,7 @@
 
 
 
-
-
-
-// Object AmountSplit: Object with amount split information, splitting logic and splitting calulation
-function AmountSplit() {
-    // maximum memorized entries for undo
-    // number needs to be high, because every change/keypress is processed.
-    this.MAXUNDO = 1000;
-
-    this.Amount = this.readAmount();
+function AmountSplit(Payment) {
     this.AmountShares = this.readAmountShares();
 
     this.HistoryEntry = function() {
@@ -28,39 +19,8 @@ function AmountSplit() {
     this.update();
 };
 
-// Read amount from form
-AmountSplit.prototype.readAmount = function() {
-    this.Amount = $('#amount').val();
-};
 
-AmountSplit.prototype.setAmount = function(Amount) {
-    this.Amount = Amount;
-    // Process changes
-    this.update()
-};
 
-// Read amount split lines of all users from form
-AmountSplit.prototype.readAmountShares = function() {
-    var person;
-    var AmountShares = {};
-    // find all persons by looking for the paymentBy* entries
-    persons = $("[id^='paymentBy']")
-
-    // process all found persons and get an AmountShare object
-    persons.each( function() {
-            AmountShares[$(this).attr("value")] = new AmountShare($(this).attr("value"));
-        }
-    )
-    return AmountShares;
-};
-
-// Write amount to form
-AmountSplit.prototype.writeAmount = function() {
-    $('#amount').val(this.Amount);
-
-    // remember data for undo
-    this.addUndoHistory();
-};
 
 // Write amount split lines of all users to form
 AmountSplit.prototype.writeAmountShares = function() {
@@ -175,53 +135,3 @@ AmountSplit.prototype.clear = function() {
 
 };
 
-
-// Enable Combobox extension
-function enableCombobox () {
-    $(document).ready(function(){
-        $('.combobox').combobox();
-        // Scroll Combobox to the top when entering data to see more of the drop-down values
-        $("input[class~='combobox']").focus( function() {
-            scrollTo('#paidWhatLabel')
-        });
-    });
-};
-
-// Enable AmountSplit functionality
-function enableAmountSplit () {
-    $(document).ready(function(){
-        var AmountSplitObj;
-        AmountSplitObj = new AmountSplit();
-
-        // Listen to changes of #amount
-        $('#amount').on('input', function() {
-            AmountSplitObj.setAmount($(this).val());
-        });
-
-        // Listen for split method selection
-        $('#splitMethod1').change(function() {
-            AmountSplitObj.setMethodEqually();
-        });
-        $('#splitMethod2').change(function() {
-            AmountSplitObj.setMethodOther();
-        });
-
-        // Listen for full assignment to one person
-        $("[id^='fullyAssigned']").change(function() {
-            if (this.checked) {
-                //AmountSplitObj.setPersonfullyAssigned();
-            }
-        });
-
-        // Listen for pressing of undo button
-        $('#undoButton').click(function() {
-            AmountSplitObj.undo();
-        });
-
-        // Listen for pressing of clear button
-        $('#clearButton').click(function() {
-            AmountSplitObj.clear();
-        });
-
-    });
-};
