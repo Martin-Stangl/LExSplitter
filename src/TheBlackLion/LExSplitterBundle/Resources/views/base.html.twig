@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="{% block ng_app %}{% endblock %}">
     <head>
         <title>{% block title %}LExSplitter{% endblock %}</title>
         <meta charset="UTF-8" />
@@ -7,14 +7,20 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         {% block stylesheets %}
-            {# Bootstrap --> #}
-            <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
-            {# Bootstrap Combobox #}
-            {% stylesheets '@TheBlackLionLExSplitterBundle/Resources/public/css/*' filter='cssrewrite' %}
-                <link href="{{ asset_url }}" rel="stylesheet" media="screen">
+            {# Bootstrap #}
+            {% stylesheets
+                '@bootstrap_css'
+                output="/css/framework.css"
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}"  media="screen">
             {% endstylesheets %}
-            {# HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries #}
-            {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+            {# Project specific CSS #}
+            {% stylesheets
+                '@TheBlackLionLExSplitterBundle/Resources/public/css/*.css'
+                output="/css/app.css"
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" media="screen">
+            {% endstylesheets %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="apple-touch-icon" type="image/png" href="{{ asset('apple-touch-icon.png') }}" />
@@ -25,12 +31,32 @@
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}
-            {# jQuery (necessary for Bootstraps JavaScript plugins) #}
-            <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
-            {# Include all JavaScripts, compiled by Assetic #}
-            <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+            {# Bootstrap's JavaScript plugins, includes jQuery because of defined dependencies #}
+            {# AngularJS #}
+            {% javascripts
+                "@bootstrap_js"
+                "@angularjs_js"
+                output="/js/framework.js"
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
             {# Site specific javascript #}
-            {% javascripts '@TheBlackLionLExSplitterBundle/Resources/public/js/*' %}
+            {% javascripts
+                '@TheBlackLionLExSplitterBundle/Resources/public/js/*.js'
+                output="/js/other.js"
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            {% javascripts
+                '@TheBlackLionLExSplitterBundle/Resources/public/js/Model/*.js'
+                output="/js/model.js"
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            {% javascripts
+                '@TheBlackLionLExSplitterBundle/Resources/public/js/Controller/*.js'
+                output="/js/controller.js"
+            %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}

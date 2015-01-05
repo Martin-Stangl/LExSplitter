@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$">      
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/vendor/braincrafted/bootstrap-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
@@ -29,8 +30,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/symfony" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/extensions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/dunglas/angular-csrf-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/sp/bower-bundle" />      
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -74,8 +73,6 @@
           <root url="file://$MODULE_DIR$/vendor/sensio/generator-bundle" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/doctrine-cache-bundle" />
           <root url="file://$MODULE_DIR$/vendor/sensio/framework-extra-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/dunglas/angular-csrf-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/sp/bower-bundle" />          
         </CLASSES>
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/doctrine/common" />
@@ -105,8 +102,6 @@
           <root url="file://$MODULE_DIR$/vendor/sensio/generator-bundle" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/doctrine-cache-bundle" />
           <root url="file://$MODULE_DIR$/vendor/sensio/framework-extra-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/dunglas/angular-csrf-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/sp/bower-bundle" />          
         </SOURCES>
       </library>
     </orderEntry>

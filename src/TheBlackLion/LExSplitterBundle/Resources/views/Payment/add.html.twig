@@ -1,8 +1,10 @@
 {% extends 'TheBlackLionLExSplitterBundle::base.html.twig' %}
 
+{% block ng_app %}addPayment{% endblock %}
+
 {% block body %}
     <h1>Menu</h1>
-    <form>
+    <form ng-controller="addPaymentController">
 
         {# Selection of person which did the payment #}
         <div class="row">
@@ -42,7 +44,7 @@
             <div class="col-xs-6">
                 <div class="form-group">
                     <label for="amount">Date</label>
-                    <input type="date" name="paymentDate" class="form-control" aria-label="Date" id="date">
+                    <input type="date" ng-model="Payment.date" name="paymentDate" class="form-control" aria-label="Date" id="date">
                 </div>
             </div>
 
@@ -52,7 +54,7 @@
                     <label for="amount">Amount</label>
                     <div class="input-group">
                         <span class="input-group-addon">EUR</span>
-                        <input type="number" name="paymentAmount" class="form-control" aria-label="Amount" id="amount" step="0.01" required>
+                        <input type="number" ng-model="amount" name="paymentAmount" class="form-control" aria-label="Amount" id="amount" step="0.01" required value="20">
                     </div>
                 </div>
             </div>
@@ -149,7 +151,6 @@
                                 </table>
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <button type="button" class="btn btn-warning btn-block" id="undoButton" disabled="disabled">Undo</button>
                                     </div>
                                     <div class="col-xs-6">
                                         <button type="button" class="btn btn-warning btn-block" id="clearButton">Clear</button>
@@ -180,17 +181,4 @@
         </div>
 
     </form>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script type="text/javascript">
-        //<![CDATA[
-        {# Combobox functionality - coverts select into combobox #}
-        enableCombobox();
-        {# Initiate Amount Split calulation #}
-        enableAmountSplit();
-        //]]>
-    </script>
 {% endblock %}

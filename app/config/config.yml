@@ -33,8 +33,9 @@ twig:
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: false
-    bundles:        [ TheBlackLionLExSplitterBundle ]
+    use_controller: true
+#    bundles:        []
+    bundles:        ["TheBlackLionLExSplitterBundle"]
     #java: /usr/bin/java
     filters:
         less:
@@ -49,7 +50,15 @@ assetic:
 
 # Bower Configuration
 sp_bower:
+    assetic:
+        enabled: true
+        filters:
+            css:
+                - cssrewrite
+            js:
+                - ?uglifyjs
     bundles:
+        TheBlackLionLExSplitterBundle: ~
 
 # Doctrine Configuration
 doctrine:
