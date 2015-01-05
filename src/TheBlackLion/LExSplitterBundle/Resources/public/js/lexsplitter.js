@@ -1,7 +1,5 @@
 /**
  * Created by Martin on 02.01.2015.
- *
- * 
  */
 
 // Animated scroll to object with tag ID targetID
