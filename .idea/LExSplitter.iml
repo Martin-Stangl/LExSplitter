@@ -2,9 +2,8 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/vendor/jquery/jquery" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-menu" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-menu-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dunglas/angular-csrf-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sp/bower-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -22,16 +21,14 @@
     <orderEntry type="module-library">
       <library name="PHP">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/knplabs/knp-menu-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/knplabs/knp-menu" />
+          <root url="file://$MODULE_DIR$/vendor/dunglas/angular-csrf-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/sp/bower-bundle" />
           <root url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
-          <root url="file://$MODULE_DIR$/vendor/jquery/jquery" />
         </CLASSES>
         <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/knplabs/knp-menu-bundle" />
-          <root url="file://$MODULE_DIR$/vendor/knplabs/knp-menu" />
+          <root url="file://$MODULE_DIR$/vendor/dunglas/angular-csrf-bundle" />
+          <root url="file://$MODULE_DIR$/vendor/sp/bower-bundle" />
           <root url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
-          <root url="file://$MODULE_DIR$/vendor/jquery/jquery" />
         </SOURCES>
       </library>
     </orderEntry>
