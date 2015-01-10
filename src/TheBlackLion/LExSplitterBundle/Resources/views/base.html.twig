@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="{% block ng_app %}{% endblock %}">
+<html {% if ng_page is defined %}ng-app="{{  ng_page }}Module" ng-controller="{{  ng_page }}Controller"{% endif %}>
     <head>
         <title>{% block title %}LExSplitter{% endblock %}</title>
         <meta charset="UTF-8" />
@@ -14,7 +14,7 @@
             %}
                 <link rel="stylesheet" href="{{ asset_url }}"  media="screen">
             {% endstylesheets %}
-            {# Project specific CSS #}
+            {# Site specific CSS #}
             {% stylesheets
                 '@TheBlackLionLExSplitterBundle/Resources/public/css/*.css'
                 output="/css/app.css"
@@ -40,25 +40,21 @@
             %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
-            {# Site specific javascript #}
-            {% javascripts
-                '@TheBlackLionLExSplitterBundle/Resources/public/js/*.js'
-                output="/js/other.js"
-            %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-            {% javascripts
-                '@TheBlackLionLExSplitterBundle/Resources/public/js/Model/*.js'
-                output="/js/model.js"
-            %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-            {% javascripts
-                '@TheBlackLionLExSplitterBundle/Resources/public/js/Controller/*.js'
-                output="/js/controller.js"
-            %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
+            {# Site specific javascript: global and services, directives #}
+            {# Angular js structure follows best practice recommendation:
+                https://docs.google.com/a/theblacklion.net/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic
+               Important difference: module definition files get the suffix "-module", otherwhise we cannot make assetic
+               pick the files in the right order: first module definition, then the rest.
+             #}
+            {% if ng_page is defined %}
+                {% javascripts
+                    "@TheBlackLionLExSplitterBundle/Resources/public/js/components/*/*-module.js"
+                    "@TheBlackLionLExSplitterBundle/Resources/public/js/components/*/*-[!m]*.js"
+                    output="/js/components.js"
+                %}
+                    <script type="text/javascript" src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+            {% endif %}
         {% endblock %}
     </body>
 </html>
