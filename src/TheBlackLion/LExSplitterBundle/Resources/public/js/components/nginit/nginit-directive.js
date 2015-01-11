@@ -2,7 +2,8 @@
  * Created by Martin on 06.01.2015.
  */
 
-// Load initial value of HTML input fields into bound angularjs variables ($scope)
+/*
+// Load initial values of HTML input fields into bound angularjs variables ($scope)
 angular.module('ngInitModule').directive('input', function ($parse) {
     return {
         restrict: 'E',
@@ -35,3 +36,19 @@ angular.module('ngInitModule').directive('input', function ($parse) {
         }
     }
 });
+ */
+
+/*
+// Load initial values of HTML angular UI Bootstrap radio buttons into bound angularjs variables ($scope)
+angular.module('ngInitModule').directive('btnRadio', function ($parse) {
+    return {
+        // restrict: 'A',
+        require: '?ngModel',
+        link: function (scope, element, attrs) {
+
+            console.log(attrs);
+            $parse(attrs.ngModel).assign(scope, attrs.btnRadio);
+                }
+            }
+    });
+*/

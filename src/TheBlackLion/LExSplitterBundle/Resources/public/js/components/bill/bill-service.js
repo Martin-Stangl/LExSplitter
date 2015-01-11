@@ -10,9 +10,44 @@ angular.module('BillModule').factory('Bill', function() {
     function Bill() {
         // public properties
         this.description = "";
-        this.date = new Date();
-        this.amount = 0.00;
+        this.amount = null;
     }
+
+    // Public setters and getters
+    Bill.prototype = {
+        get date() {
+            if (date == null){
+                return null;
+            }
+            var yyyy = date.getFullYear().toString();
+            var mm = (date.getMonth()+1).toString(); // getMonth() is zero-based
+            var dd  = date.getDate().toString();
+            return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
+        },
+        set date(value) {
+            var d = new Date(value);
+            if ( Object.prototype.toString.call(d) === "[object Date]" ) {
+                // it is a date
+                if ( isNaN( d.getTime() ) ) {  // d.valueOf() could also work
+                    date = null;
+                    // date is not valid
+                }
+                else {
+                    // date is valid
+                    date = d;
+                }
+            }
+            else {
+                // not a date
+                date = null;
+            }
+        }
+    }
+
+    // private variables
+    var date = null;
+
+
 
     // Return the constructor function
     return Bill;

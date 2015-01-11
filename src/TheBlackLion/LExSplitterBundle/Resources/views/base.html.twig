@@ -10,14 +10,14 @@
             {# Bootstrap #}
             {% stylesheets
                 '@bootstrap_css'
-                output="/css/framework.css"
+                output="css/framework.css"
             %}
                 <link rel="stylesheet" href="{{ asset_url }}"  media="screen">
             {% endstylesheets %}
             {# Site specific CSS #}
             {% stylesheets
                 '@TheBlackLionLExSplitterBundle/Resources/public/css/*.css'
-                output="/css/app.css"
+                output="css/app.css"
             %}
                 <link rel="stylesheet" href="{{ asset_url }}" media="screen">
             {% endstylesheets %}
@@ -34,9 +34,10 @@
             {# Bootstrap's JavaScript plugins, includes jQuery because of defined dependencies #}
             {# AngularJS #}
             {% javascripts
-                "@bootstrap_js"
+                "@jquery_js"
                 "@angularjs_js"
-                output="/js/framework.js"
+                "@angular_bootstrap_js"
+                output="js/framework.js"
             %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
@@ -50,8 +51,12 @@
                 {% javascripts
                     "@TheBlackLionLExSplitterBundle/Resources/public/js/components/*/*-module.js"
                     "@TheBlackLionLExSplitterBundle/Resources/public/js/components/*/*-[!m]*.js"
-                    output="/js/components.js"
+                    output="js/components.js"
                 %}
+{#
+            "@TheBlackLionLExSplitterBundle/Resources/public/js/components/*/*-service.js"
+            "@TheBlackLionLExSplitterBundle/Resources/public/js/components/*/*-directive.js"
+#}
                     <script type="text/javascript" src="{{ asset_url }}"></script>
                 {% endjavascripts %}
             {% endif %}

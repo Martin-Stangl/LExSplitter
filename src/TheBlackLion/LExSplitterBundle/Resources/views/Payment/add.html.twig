@@ -3,21 +3,19 @@
 {% set ng_page = 'addPayment' %}
 
 {% block body %}
-    <h1>Menu</h1>
+    <h1>payment.bill.date = {% verbatim %}{{ payment.bill.date }}{% endverbatim %} </h1>
     <form action="#">
 
         {# Selection of person which did the payment #}
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
-                    <label for="paymentBy">Payment by</label>
-                    <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-primary active" data-ng-click="payment.payer.personId = 1">
-                            <input type="radio" data-ng-model="payment.payer.personId" name="payment.payer.personId" autocomplete="off" value="1" checked>Martin
-                        </label>
-                        <label class="btn btn-primary" data-ng-click="payment.payer.personId = 2">
-                            <input type="radio" data-ng-model="payment.payer.personId" name="payment.payer.personId" autocomplete="off" value="2">Nico
-                        </label>
+                    <label for="payment.payer.personId">Payment by</label>
+                    <div class="btn-group btn-group-justified" ng-init="payment.payer.personId = 1">
+                        <label class="btn btn-primary" ng-model="payment.payer.personId" btn-radio="1">Martin</label>
+                        <label class="btn btn-primary" ng-model="payment.payer.personId" btn-radio="2">Nico</label>
+                        <input type="hidden" name="payment.payer.personId"
+                               value='{% verbatim %}{{ payment.payer.personId }}{% endverbatim %}'>
                     </div>
                 </div>
             </div>
@@ -26,15 +24,13 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
-                    <label for="paidWhat" id="paidWhatLabel">What was paid?</label>
-                    <select class="combobox input-large form-control" name="paidWhat" id="paidWhat">
-                        <option value="">Description</option>
-                        <option value="1" selected="selected">Billa</option>
-                        <option value="2">Putzfrau</option>
-                        <option value="3">Spar</option>
-                        <option value="4">Mittagessen</option>
-                        <option value="5">Merkur</option>
-                    </select>
+                    <label for="payment.bill.description" id="paidWhatLabel">What was paid?</label>
+                    <input type="text" ng-model="payment.bill.description" name="payment.bill.description"
+                           ng-init="payment.bill.description = 'Spar'; descriptions = ['Billa', 'Putzfrau', 'Spar',
+                           'Mittagessen', 'Resch&Frisch', 'Merkur', 'Strom']"
+                           typeahead="description for description in descriptions | filter:$viewValue | limitTo:8"
+                           typeahead-focus-first="false"
+                           class="form-control" app-on-focus-scroll-to="#paidWhatLabel" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -44,17 +40,20 @@
             <div class="col-xs-6">
                 <div class="form-group">
                     <label for="amount">Date</label>
-                    <input type="date" data-ng-model="payment.bill.date" name="payment.bill.date" class="form-control" aria-label="Date" value="2015-01-05">
+                    <input type="date" ng-model="payment.bill.date" name="payment.bill.date"
+                           ng-init="payment.bill.date = '2015-01-05'" class="form-control" aria-label="Date">
                 </div>
             </div>
 
             {# Enter paid amount #}
             <div class="col-xs-6">
                 <div class="form-group">
-                    <label for="amount">Amount</label>
+                    <label for="payment.bill.amount">Amount</label>
                     <div class="input-group">
                         <span class="input-group-addon">EUR</span>
-                        <input type="number" data-ng-model="payment.bill.amount" name="payment.bill.amount" class="form-control" aria-label="Amount" step="0.01" required value="20.75">
+                        <input type="number" ng-model="payment.bill.amount" name="payment.bill.amount"
+                               class="form-control" aria-label="Amount" step="0.01" required
+                                ng-init="payment.bill.amount = 22.70">
                     </div>
                 </div>
             </div>
@@ -191,7 +190,7 @@
         {% javascripts
             "@TheBlackLionLExSplitterBundle/Resources/public/js/addpayment/*-module.js"
             "@TheBlackLionLExSplitterBundle/Resources/public/js/addpayment/*-[!m]*.js"
-            output="/js/addpayment.js"
+            output="js/addpayment.js"
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}

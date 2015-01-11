@@ -6,6 +6,7 @@
 angular.module('addPaymentModule').controller('addPaymentController', ['$scope', 'Payment', function ($scope,Payment) {
 
     $scope.payment = new Payment();
+    $scope.descriptions = [];
 
     $scope.myDebug = function(msg) {
         console.log(msg);
@@ -19,19 +20,19 @@ angular.module('addPaymentModule').controller('addPaymentController', ['$scope',
             case 'equal':
                 // switch to split method Equal
                 // hide detail split fields
-                $('#otherSplitFields').collapse('hide');
+                angular.element('#otherSplitFields').collapse('hide');
                 // set fields to not be required
-                $("[id^='splitPercentage']").removeAttr("required");
-                $("[id^='splitAmount']").removeAttr("required");
+                angular.element("[id^='splitPercentage']").removeAttr("required");
+                angular.element("[id^='splitAmount']").removeAttr("required");
                 break;
             case 'other':
                 // switch to split method Other
                 // set fields to be required
-                $("[id^='splitPercentage']").prop("required", true);
-                $("[id^='splitAmount']").prop("required", true);
+                angular.element("[id^='splitPercentage']").prop("required", true);
+                angular.element("[id^='splitAmount']").prop("required", true);
                 // show detail split fields
-                $('#otherSplitFields').collapse('show');
-                scrollTo('#splitLabel');
+                angular.element('#otherSplitFields').collapse('show');
+                Helper.scrollToId('#splitLabel');
                 break;
             default:
                 console.log('Unknown split method '+splitMethod);
