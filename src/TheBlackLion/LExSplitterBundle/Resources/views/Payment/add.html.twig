@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Menu</h1>
-    <form>
+    <form action="#">
 
         {# Selection of person which did the payment #}
         <div class="row">
@@ -12,11 +12,11 @@
                 <div class="form-group">
                     <label for="paymentBy">Payment by</label>
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-primary active">
-                            <input type="radio" name="paymentBy" id="paymentBy1" autocomplete="off" value="1" checked>Martin
+                        <label class="btn btn-primary active" data-ng-click="payment.payer.personId = 1">
+                            <input type="radio" data-ng-model="payment.payer.personId" name="payment.payer.personId" autocomplete="off" value="1" checked>Martin
                         </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="paymentBy" id="paymentBy2" autocomplete="off" value="2">Nico
+                        <label class="btn btn-primary" data-ng-click="payment.payer.personId = 2">
+                            <input type="radio" data-ng-model="payment.payer.personId" name="payment.payer.personId" autocomplete="off" value="2">Nico
                         </label>
                     </div>
                 </div>
@@ -40,11 +40,11 @@
         </div>
 
         <div class="row">
-            {# Enter payment date#}
+            {# Enter payment date #}
             <div class="col-xs-6">
                 <div class="form-group">
                     <label for="amount">Date</label>
-                    <input type="date" ng-model="Bill.date" name="paymentDate" class="form-control" aria-label="Date" id="date">
+                    <input type="date" data-ng-model="payment.bill.date" name="payment.bill.date" class="form-control" aria-label="Date" value="2015-01-05">
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
                     <label for="amount">Amount</label>
                     <div class="input-group">
                         <span class="input-group-addon">EUR</span>
-                        <input type="number" ng-model="Bill.amount" name="paymentAmount" class="form-control" aria-label="Amount" id="amount" step="0.01" required value="20">
+                        <input type="number" data-ng-model="payment.bill.amount" name="payment.bill.amount" class="form-control" aria-label="Amount" step="0.01" required value="20.75">
                     </div>
                 </div>
             </div>
@@ -68,13 +68,14 @@
 
                     <div class="form-group">
                         <div class="btn-group btn-group-justified" data-toggle="buttons">
-                            <label class="btn btn-primary active">
-                                <input type="radio" name="splitMethod" id="splitMethod1" autocomplete="off" value="equal" checked>Equally
+                            <label class="btn btn-primary active" data-ng-click="payment.split.method = 'equal'; toggleSplitMethodForm(payment.split.method);">
+                                <input type="radio" data-ng-model="payment.split.method" name="payment.split.method" id="splitMethod1" autocomplete="off" value="equal" checked>Equal
                             </label>
-                            <label class="btn btn-primary" aria-expanded="false" aria-controls="otherSplitFields">
-                                <input type="radio" name="splitMethod" id="splitMethod2" autocomplete="off" value="other">Other
+                            <label class="btn btn-primary" data-ng-click="payment.split.method = 'other'; toggleSplitMethodForm(payment.split.method);" aria-expanded="false" aria-controls="otherSplitFields">
+                                <input type="radio" data-ng-model="payment.split.method" name="payment.split.method" id="splitMethod2" autocomplete="off" value="other">Other
                             </label>
                         </div>
+                        Value: {% verbatim %}{{payment.split.method  }}{%  endverbatim %}
 
                         <div class="collapse" id="otherSplitFields">
                             <div class="well">

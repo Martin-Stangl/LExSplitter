@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html {% if ng_page is defined %}ng-app="{{  ng_page }}Module" ng-controller="{{  ng_page }}Controller"{% endif %}>
+<html {% if ng_page is defined %}data-ng-app="{{  ng_page }}Module" data-ng-controller="{{  ng_page }}Controller"{% endif %}>
     <head>
         <title>{% block title %}LExSplitter{% endblock %}</title>
         <meta charset="UTF-8" />

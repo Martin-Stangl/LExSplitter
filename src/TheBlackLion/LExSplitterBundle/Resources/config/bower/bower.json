@@ -1,8 +1,8 @@
 {
   "name": "TheBlackLionLExSplitter",
   "dependencies": {
-      "jquery": "1.11.2",
       "bootstrap": "3.3.1",
-      "angularjs": "1.2.28"
+      "angularjs": "1.2.28",
+      "angular-bootstrap": "0.12.0"
   }
 }
